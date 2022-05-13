@@ -7,6 +7,7 @@
                 <th scope="col">Имя</th>
                 <th scope="col">Возраст</th>
                 <th scope="col">Профессия</th>
+                <th scope="col">Редактирование</th>
             </tr>
             </thead>
             <tbody>
@@ -14,6 +15,9 @@
                 <td>{{ person.name }}</td>
                 <td>{{ person.age }}</td>
                 <td>{{ person.job }}</td>
+                <td>
+                    <router-link :to="{ name: 'person.edit', param: {id: person.id} }">Редактировать</router-link>
+                </td>
             </tr>
             </tbody>
         </table>

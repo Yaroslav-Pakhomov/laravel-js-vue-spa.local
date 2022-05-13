@@ -5424,6 +5424,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Index"
 });
@@ -5563,7 +5564,7 @@ vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vue_router__WEBPACK_IMPORTED_MOD
     },
     name: 'person.edit'
   }, {
-    path: '/people/show',
+    path: '/people/:id',
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_components_Person_Show_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Person/Show */ "./resources/js/components/Person/Show.vue"));
     },
@@ -28308,6 +28309,10 @@ var render = function () {
       _vm._v(" "),
       _c("router-link", { attrs: { to: { name: "person.index" } } }, [
         _vm._v("People"),
+      ]),
+      _vm._v(" "),
+      _c("router-link", { attrs: { to: { name: "person.create" } } }, [
+        _vm._v("Add"),
       ]),
       _vm._v(" "),
       _c("br"),

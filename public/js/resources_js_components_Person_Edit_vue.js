@@ -41,27 +41,31 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    this.getPerson();
-    console.log(this.$route.params);
+    this.getPerson(); // console.log(this.$route.params)
   },
   methods: {
     getPerson: function getPerson() {
       var _this = this;
 
-      axios.get('/api/people/' + this.$route.params.id).then(function (res) {
+      axios.get("/api/people/".concat(this.$route.params.id)).then(function (res) {
         _this.name = res.data.name;
         _this.age = res.data.age;
         _this.job = res.data.job;
       });
     },
     update: function update() {
-      axios.patch('/api/people/' + this.$route.params.id, {
+      var _this2 = this;
+
+      axios.patch("/api/people/".concat(this.$route.params.id), {
         name: this.name,
         age: this.age,
         job: this.job
       }).then(function (res) {
         _router__WEBPACK_IMPORTED_MODULE_0__["default"].push({
-          name: 'person.show'
+          name: 'person.show',
+          params: {
+            id: _this2.$route.params.id
+          }
         });
       });
     }

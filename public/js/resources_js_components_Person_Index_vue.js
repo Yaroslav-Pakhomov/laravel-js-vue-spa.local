@@ -33,6 +33,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Index",
   data: function data() {
@@ -154,6 +158,22 @@ var render = function () {
             _c("td", [_vm._v(_vm._s(person.age))]),
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(person.job))]),
+            _vm._v(" "),
+            _c(
+              "td",
+              [
+                _c(
+                  "router-link",
+                  {
+                    attrs: {
+                      to: { name: "person.edit", param: { id: person.id } },
+                    },
+                  },
+                  [_vm._v("Редактировать")]
+                ),
+              ],
+              1
+            ),
           ])
         }),
         0
@@ -173,6 +193,8 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Возраст")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Профессия")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Редактирование")]),
       ]),
     ])
   },

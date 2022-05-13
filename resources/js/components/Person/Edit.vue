@@ -32,12 +32,12 @@ export default {
 
     mounted() {
         this.getPerson()
-        console.log(this.$route.params)
+        // console.log(this.$route.params)
     },
 
     methods: {
         getPerson() {
-            axios.get('/api/people/' + this.$route.params.id)
+            axios.get(`/api/people/${this.$route.params.id}`)
                 .then(res => {
                     this.name = res.data.name
                     this.age = res.data.age
@@ -46,13 +46,13 @@ export default {
         },
 
         update() {
-            axios.patch('/api/people/' + this.$route.params.id, {
+            axios.patch(`/api/people/${this.$route.params.id}`, {
                 name: this.name,
                 age: this.age,
                 job: this.job,
             })
                 .then(res => {
-                    router.push({name: 'person.show'})
+                    router.push({name: 'person.show', params: {id: this.$route.params.id}})
                 })
         }
     }
