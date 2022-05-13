@@ -17,8 +17,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "Index"
+  name: "Index",
+  data: function data() {
+    return {
+      people: []
+    };
+  },
+  mounted: function mounted() {
+    this.getPeople();
+  },
+  methods: {
+    getPeople: function getPeople() {
+      var _this = this;
+
+      axios.get('/api/people').then(function (res) {
+        _this.people = res.data;
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -107,9 +140,43 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    Person Index\n")])
+  return _c("div", [
+    _vm._v("\n    Person Index\n    "),
+    _c("table", { staticClass: "table" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.people, function (person) {
+          return _c("tr", [
+            _c("td", [_vm._v(_vm._s(person.name))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(person.age))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(person.job))]),
+          ])
+        }),
+        0
+      ),
+    ]),
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Имя")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Возраст")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Профессия")]),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 
