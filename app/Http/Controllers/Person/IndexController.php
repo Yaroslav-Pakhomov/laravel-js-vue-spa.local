@@ -5,13 +5,16 @@ declare(strict_types = 1);
 namespace App\Http\Controllers\Person;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Person\PersonResource;
 use App\Models\Person;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class IndexController extends Controller
 {
-    public function __invoke(): Collection
+    public function __invoke(): AnonymousResourceCollection
     {
-        return Person::all();
+        $persons = Person::all();
+
+        return PersonResource::collection($persons);
     }
 }
