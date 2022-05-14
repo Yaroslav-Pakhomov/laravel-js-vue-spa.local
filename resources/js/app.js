@@ -4,6 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 import Vue from "vue";
+import store from "./store";
 import router from "./router";
 import Index from "./components";
 
@@ -36,5 +37,6 @@ const app = new Vue({
     components: {
         Index
     },
-    router
+    router,
+    store
 });
