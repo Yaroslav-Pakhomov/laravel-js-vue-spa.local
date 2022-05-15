@@ -29,48 +29,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Edit",
-  data: function data() {
-    return {
-      name: '',
-      age: null,
-      job: ''
-    };
-  },
+  // data() {
+  //     return {
+  //         name: '',
+  //         age: null,
+  //         job: '',
+  //     }
+  // },
   mounted: function mounted() {
-    this.getPerson(); // console.log(this.$route.params)
+    this.$store.dispatch('getPerson', this.$route.params.id); // console.log(this.$route.params)
   },
-  methods: {
-    getPerson: function getPerson() {
-      var _this = this;
-
-      axios.get("/api/people/".concat(this.$route.params.id)).then(function (res) {
-        _this.name = res.data.data.name;
-        _this.age = res.data.data.age;
-        _this.job = res.data.data.job;
-      });
-    },
-    update: function update() {
-      var _this2 = this;
-
-      axios.patch("/api/people/".concat(this.$route.params.id), {
-        name: this.name,
-        age: this.age,
-        job: this.job
-      }).then(function (res) {
-        _this2.$router.push({
-          name: 'person.show',
-          params: {
-            id: _this2.$route.params.id
-          }
-        });
-      });
-    }
+  methods: {// getPerson() {
+    //     axios.get(`/api/people/${this.$route.params.id}`)
+    //         .then(res => {
+    //             this.name = res.data.data.name
+    //             this.age = res.data.data.age
+    //             this.job = res.data.data.job
+    //         })
+    // },
+    // update() {
+    //     axios.patch(`/api/people/${this.$route.params.id}`, {
+    //         name: this.name,
+    //         age: this.age,
+    //         job: this.job,
+    //     })
+    //         .then(res => {
+    //             this.$router.push({name: 'person.show', params: {id: this.$route.params.id}})
+    //         })
+    // }
   },
   computed: {
     isDisabled: function isDisabled() {
-      return Boolean(this.name && this.age && this.job);
+      return Boolean(this.person.name && this.person.age && this.person.job);
+    },
+    person: function person() {
+      return this.$store.getters.person;
     }
   }
 });
@@ -161,93 +158,104 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "w-50" }, [
-    _vm._v("\n    Person Edit\n    "),
-    _c("div", { staticClass: "m-3" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.name,
-            expression: "name",
-          },
-        ],
-        staticClass: "form-control",
-        attrs: { type: "text", placeholder: "Имя" },
-        domProps: { value: _vm.name },
-        on: {
-          input: function ($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.name = $event.target.value
-          },
-        },
-      }),
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "m-3" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.age,
-            expression: "age",
-          },
-        ],
-        staticClass: "form-control",
-        attrs: { type: "number", placeholder: "Возраст" },
-        domProps: { value: _vm.age },
-        on: {
-          input: function ($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.age = $event.target.value
-          },
-        },
-      }),
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "m-3" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.job,
-            expression: "job",
-          },
-        ],
-        staticClass: "form-control",
-        attrs: { type: "text", placeholder: "Профессия" },
-        domProps: { value: _vm.job },
-        on: {
-          input: function ($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.job = $event.target.value
-          },
-        },
-      }),
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "m-3" }, [
-      _c("input", {
-        staticClass: "btn btn-primary",
-        attrs: { disabled: !_vm.isDisabled, type: "submit", value: "Обновить" },
-        on: {
-          click: function ($event) {
-            $event.preventDefault()
-            return _vm.update()
-          },
-        },
-      }),
-    ]),
-  ])
+  return _vm.person
+    ? _c("div", { staticClass: "w-50" }, [
+        _vm._v("\n    Person Edit\n    "),
+        _c("div", { staticClass: "m-3" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.person.name,
+                expression: "person.name",
+              },
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Имя" },
+            domProps: { value: _vm.person.name },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.person, "name", $event.target.value)
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "m-3" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.person.age,
+                expression: "person.age",
+              },
+            ],
+            staticClass: "form-control",
+            attrs: { type: "number", placeholder: "Возраст" },
+            domProps: { value: _vm.person.age },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.person, "age", $event.target.value)
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "m-3" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.person.job,
+                expression: "person.job",
+              },
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Профессия" },
+            domProps: { value: _vm.person.job },
+            on: {
+              input: function ($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.person, "job", $event.target.value)
+              },
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "m-3" }, [
+          _c("input", {
+            staticClass: "btn btn-primary",
+            attrs: {
+              disabled: !_vm.isDisabled,
+              type: "submit",
+              value: "Обновить",
+            },
+            on: {
+              click: function ($event) {
+                $event.preventDefault()
+                return _vm.$store.dispatch("update", {
+                  id: _vm.person.id,
+                  name: _vm.person.name,
+                  age: _vm.person.age,
+                  job: _vm.person.job,
+                })
+              },
+            },
+          }),
+        ]),
+      ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true

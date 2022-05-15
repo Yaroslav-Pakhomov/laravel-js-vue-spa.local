@@ -29,6 +29,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Create",
   data: function data() {
@@ -38,27 +39,26 @@ __webpack_require__.r(__webpack_exports__);
       job: ''
     };
   },
-  methods: {
-    store: function store() {
-      var _this = this;
-
-      axios.post('/api/people', {
-        name: this.name,
-        age: this.age,
-        job: this.job
-      }).then(function (res) {
-        // console.log(res);
-        _this.$router.push({
-          name: 'person.index'
-        });
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    }
+  methods: {// store() {
+    //     axios.post('/api/people', {
+    //         name: this.name,
+    //         age: this.age,
+    //         job: this.job,
+    //     })
+    //         .then(res => {
+    //             this.$router.push({ name: 'person.index'})
+    //         })
+    //         .catch(error => {
+    //             console.log(error);
+    //         })
+    // }
   },
   computed: {
     isDisabled: function isDisabled() {
       return this.name && this.age && this.job;
+    },
+    person: function person() {
+      return this.$store.getters.person;
     }
   }
 });
@@ -230,7 +230,11 @@ var render = function () {
         on: {
           click: function ($event) {
             $event.preventDefault()
-            return _vm.store()
+            return _vm.$store.dispatch("store", {
+              name: _vm.name,
+              age: _vm.age,
+              job: _vm.job,
+            })
           },
         },
       }),
