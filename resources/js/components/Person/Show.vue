@@ -5,13 +5,13 @@
             <router-link :to="{ name: 'person.edit', param: {id: this.person.id} }">Редактировать</router-link>
         </div>
         <div>
-            Имя: {{ this.person.name }}
+            Имя: {{ person.name }}
         </div>
         <div>
-            Возраст: {{ this.person.age }}
+            Возраст: {{ person.age }}
         </div>
         <div>
-            Профессия: {{ this.person.job }}
+            Профессия: {{ person.job }}
         </div>
     </div>
 </template>
@@ -20,23 +20,30 @@
 export default {
     name: "Show",
 
-    data() {
-        return {
-            person: []
-        }
-    },
+    // data() {
+    //     return {
+    //         person: []
+    //     }
+    // },
 
     mounted() {
-        this.getPerson()
+        // this.getPerson()
+        this.$store.dispatch('getPerson', this.$route.params.id)
     },
 
-    methods: {
-        getPerson() {
-            axios.get(`/api/people/${this.$route.params.id}`)
-                .then(res => {
-                    this.person = res.data.data
-                })
-        },
+    // methods: {
+    //     getPerson() {
+    //         axios.get(`/api/people/${this.$route.params.id}`)
+    //             .then(res => {
+    //                 this.person = res.data.data
+    //             })
+    //     },
+    // }
+
+    computed: {
+        person() {
+            return this.$store.getters.person
+        }
     }
 }
 </script>

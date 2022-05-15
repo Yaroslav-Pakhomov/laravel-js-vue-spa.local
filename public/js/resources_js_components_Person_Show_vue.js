@@ -31,21 +31,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Show",
-  data: function data() {
-    return {
-      person: []
-    };
-  },
+  // data() {
+  //     return {
+  //         person: []
+  //     }
+  // },
   mounted: function mounted() {
-    this.getPerson();
+    // this.getPerson()
+    this.$store.dispatch('getPerson', this.$route.params.id);
   },
-  methods: {
-    getPerson: function getPerson() {
-      var _this = this;
-
-      axios.get("/api/people/".concat(this.$route.params.id)).then(function (res) {
-        _this.person = res.data.data;
-      });
+  // methods: {
+  //     getPerson() {
+  //         axios.get(`/api/people/${this.$route.params.id}`)
+  //             .then(res => {
+  //                 this.person = res.data.data
+  //             })
+  //     },
+  // }
+  computed: {
+    person: function person() {
+      return this.$store.getters.person;
     }
   }
 });
@@ -156,15 +161,15 @@ var render = function () {
         ),
         _vm._v(" "),
         _c("div", [
-          _vm._v("\n        Имя: " + _vm._s(this.person.name) + "\n    "),
+          _vm._v("\n        Имя: " + _vm._s(_vm.person.name) + "\n    "),
         ]),
         _vm._v(" "),
         _c("div", [
-          _vm._v("\n        Возраст: " + _vm._s(this.person.age) + "\n    "),
+          _vm._v("\n        Возраст: " + _vm._s(_vm.person.age) + "\n    "),
         ]),
         _vm._v(" "),
         _c("div", [
-          _vm._v("\n        Профессия: " + _vm._s(this.person.job) + "\n    "),
+          _vm._v("\n        Профессия: " + _vm._s(_vm.person.job) + "\n    "),
         ]),
       ])
     : _vm._e()
