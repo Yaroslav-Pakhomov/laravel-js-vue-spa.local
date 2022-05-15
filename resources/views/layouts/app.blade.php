@@ -21,7 +21,6 @@
 </head>
 <body>
 <div id="app" class="p-5">
-    <example-component></example-component>
     @yield('content')
 </div>
 </body>
